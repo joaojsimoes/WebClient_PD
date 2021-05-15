@@ -7,5 +7,6 @@ export interface New{
     autor: string;
     conteudo: string;
     urlImage: string;
-    numVisibles: number;
+    enable: boolean;
+    numVisualizacoes: number;
 }
