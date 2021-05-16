@@ -11,7 +11,7 @@ const Nav = ({listOfOptions=[]}: INav) => {
             <Logo>NewsLetter</Logo>
             <NavigationBar>
                 <ListContainer>
-                    {listOfOptions.map(value => <Option><a>{value}</a></Option>)}
+                    {listOfOptions.map(value => <Option><a href="#">{value}</a></Option>)}
                 </ListContainer>
             </NavigationBar>
             <LinkLogin href="/backoffice">Login</LinkLogin>

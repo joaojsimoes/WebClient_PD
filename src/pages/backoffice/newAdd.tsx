@@ -1,16 +1,13 @@
 import { Formik } from 'formik';
 import React from 'react'
-import { useParams } from 'react-router';
-import { useHistory } from 'react-router-dom';
-import 'react-table-6/react-table.css'
+import { useHistory } from 'react-router';
 import styled from 'styled-components';
 import { New } from '../../common/interfaces/news.interface';
 
-interface INewDetails {
+interface INewAdd {
 }
 
-const NewDetails = (props: INewDetails) => {
-    const {id} = useParams<{id: string}>();
+const NewAdd = (props: INewAdd) => {
     const history = useHistory();
     const noticia: New ={};
 
@@ -22,7 +19,7 @@ const NewDetails = (props: INewDetails) => {
             <Header>
                 <div style={{display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "space-between"}}>
                     <GoBackIcon onClick={goBack}>{"<"}</GoBackIcon>
-                    <Text style={{marginLeft: "8px"}}>Details {id}</Text>
+                    <Text style={{marginLeft: "8px"}}>Add New</Text>
                 </div>
             </Header>
             <Formik
@@ -138,8 +135,7 @@ const NewDetails = (props: INewDetails) => {
                 )}
             </Formik>
         </WhiteContainer>
-    </Container>
-        );
+    </Container>);
 }
 
 const Container = styled("div")`
@@ -154,7 +150,7 @@ const Container = styled("div")`
 const WhiteContainer = styled("div")`
     background-color: white;
     width: 40vw;
-    height: 70vh;
+    height: 65vh;
     border-radius: 16px;
     box-shadow: 5px 5px 5px lightgrey;
     padding: 32px;
@@ -217,5 +213,4 @@ const GoBackIcon = styled.div`
     color: #0088a9;
     cursor: pointer;
 `;
-
-export default NewDetails;
+export default NewAdd;

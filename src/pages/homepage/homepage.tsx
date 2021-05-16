@@ -7,7 +7,7 @@ interface IHomepage {
 
 }
 
-const Homepage = ({}: IHomepage) => {
+const Homepage = (props: IHomepage) => {
     return ( 
         <Container>
             <Nav />

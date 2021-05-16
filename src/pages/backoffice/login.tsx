@@ -12,7 +12,7 @@ interface IUser{
     password?: string;
 }
 
-const LoginPage = ({}: ILogin) => {
+const LoginPage = (props: ILogin) => {
     const history = useHistory();
     return (<Container>
         <LoginContainer>

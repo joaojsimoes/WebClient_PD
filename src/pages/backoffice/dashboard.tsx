@@ -1,5 +1,6 @@
 import React from 'react'
-import ReactTable, { Column, RowInfo } from 'react-table-6';
+import { useHistory } from 'react-router';
+import ReactTable, { Column } from 'react-table-6';
 import 'react-table-6/react-table.css'
 import styled from 'styled-components';
 import { New } from '../../common/interfaces/news.interface';
@@ -8,7 +9,8 @@ interface IDashboard {
 
 }
 
-const Dashboard = ({}: IDashboard) => {
+const Dashboard = (props: IDashboard) => {
+    const history = useHistory();
     const data: New[] =  [
         {
             id: "213123",
@@ -48,11 +50,19 @@ const Dashboard = ({}: IDashboard) => {
         accessor: 'numVisualizacoes',
     }];
 
+    const onClickLine = (id: string) => {
+        history.push("/backoffice/new/:id".replace(":id",id));
+    }
+
     return (<Container>
         <WhiteContainer>
             <Header>
                 <Text>News</Text>
-                <ButtonAdd>Add new</ButtonAdd>
+                <ButtonAdd
+                    onClick={() => {
+                        history.push("/backoffice/new/add")
+                    }}
+                >Add new</ButtonAdd>
             </Header>
             <ReactTable
                 data={data}
@@ -60,11 +70,11 @@ const Dashboard = ({}: IDashboard) => {
                 showPagination={true}
                 showPaginationBottom={true}
                 defaultPageSize={15}
-                getTrProps={(rowInfo: any) => {
+                getTrProps={(state: any,rowInfo: any) => {
                     return {
                       onClick: (e: any, handleOriginal: any) => {
                         console.log('It was in this row:', rowInfo)
-                
+                        onClickLine(rowInfo.original.id);
                         // IMPORTANT! React-Table uses onClick internally to trigger
                         // events like expanding SubComponents and pivots.
                         // By default a custom 'onClick' handler will override this functionality.
@@ -82,7 +92,7 @@ const Dashboard = ({}: IDashboard) => {
 }
 
 const Container = styled("div")`
-    background-image: url(../assets/images/wallpaper2.jpg);
+    background-image: url(../../assets/images/wallpaper2.jpg);
     width: 100vw;
     height: 100vh;
     display: flex;
