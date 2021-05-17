@@ -6,7 +6,7 @@ import News from '../../components/news';
 interface IHomepage {
 
 }
-
+yarn
 const Homepage = (props: IHomepage) => {
     return ( 
         <Container>

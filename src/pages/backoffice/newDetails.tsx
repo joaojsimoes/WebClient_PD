@@ -154,7 +154,6 @@ const Container = styled("div")`
 const WhiteContainer = styled("div")`
     background-color: white;
     width: 40vw;
-    height: 70vh;
     border-radius: 16px;
     box-shadow: 5px 5px 5px lightgrey;
     padding: 32px;

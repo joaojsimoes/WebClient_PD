@@ -1,5 +1,6 @@
 import React from 'react';
 import { New } from '../../common/interfaces/news.interface';
+import produce from "immer";
 
 export const NewsActions = {
     types: {
@@ -36,7 +37,7 @@ export const NewsActions = {
     }
 };
 
-interface INewsReducer {
+export interface INewsReducer {
     news: New[],
     isLoading: boolean
 }
@@ -46,6 +47,30 @@ const initialValues: INewsReducer = {
     isLoading: false
 }
 
-/*const NewsReducer = (draft: INewsReducer, actions: any) => {
-    switch()
-}, initialValues);*/
+export const newsReducer = produce((draft: INewsReducer, action: any) => {
+    switch(action.type){
+        case NewsActions.types.FETCH_NEWS: 
+            draft.isLoading = true;
+        return;
+        case NewsActions.types.FETCH_NEWS_SUCCESS: 
+            draft.news = initialValues.news.concat(action.payload.news);
+            draft.isLoading = false;
+        return;
+        case NewsActions.types.FETCH_NEWS_ERROR: 
+            draft.isLoading = false;
+        return;
+        case NewsActions.types.ADD_NEW: 
+            draft.news = [...draft.news, action.payload.new];
+        return;
+        case NewsActions.types.UPDATE_NEW: 
+            const idx = draft.news.findIndex(not => not.id === action.payload.id);
+            if(idx > -1){
+                draft.news[idx] = action.payload.new;
+            }
+        return;
+        case NewsActions.types.DELETE_NEW: 
+            draft.news = draft.news.filter(not => not.id !== action.payload.id);
+        return;
+        default: return draft;
+    }
+}, initialValues);
