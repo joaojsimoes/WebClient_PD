@@ -1,10 +1,14 @@
 import { Formik } from 'formik';
 import React from 'react'
+import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 import { useHistory } from 'react-router-dom';
 import 'react-table-6/react-table.css'
 import styled from 'styled-components';
 import { New } from '../../common/interfaces/news.interface';
+import { IStore } from '../../config/store';
+import { NewsApi } from './news.api';
+import { NewsActions } from './news.store';
 
 interface INewDetails {
 }
@@ -12,11 +16,40 @@ interface INewDetails {
 const NewDetails = (props: INewDetails) => {
     const {id} = useParams<{id: string}>();
     const history = useHistory();
-    const noticia: New ={};
+    let noticia: New | undefined  = useSelector((store: IStore) => store.newsReducer.news.find(n => n.id === id));
+    if(noticia === undefined )
+        noticia = {};
+    const dispatch = useDispatch();
 
     const goBack = () => {
         history.goBack();
     }
+
+    const UpdateNew = (id: string, values: New) => {
+        /*NewsApi.methods.updateNew(id, values).then(
+            res => {*/
+                dispatch(NewsActions.creators.updateNew(id, values));
+                history.push("/backoffice/dashboard");
+            /*},
+            err => {
+
+            }
+        )*/
+    }
+
+    const DeleteNew = (id: string) => {
+       /* NewsApi.methods.deleteNew(id).then(
+            res => {*/
+                dispatch(NewsActions.creators.deleteNew(id));
+                history.push("/backoffice/dashboard");
+
+          /*  },
+            err => {
+
+            }
+        );*/
+    }
+
     return (<Container>
         <WhiteContainer>
             <Header>
@@ -54,7 +87,7 @@ const NewDetails = (props: INewDetails) => {
                 }}
                 onSubmit={(values, { setSubmitting }) => {
                     setTimeout(() => {
-
+                        UpdateNew(id, values);
                     setSubmitting(false);
                     }, 400);
                 }}
@@ -116,7 +149,7 @@ const NewDetails = (props: INewDetails) => {
                         <label>Autor</label>
                         <Input
                             type="text"
-                            name="categoria"
+                            name="autor"
                             onChange={handleChange}
                             onBlur={handleBlur}
                             value={values.autor}
@@ -133,6 +166,9 @@ const NewDetails = (props: INewDetails) => {
                         <TextRequired>{errors.urlImage}</TextRequired>
                         <Button type="submit" disabled={isSubmitting}>
                             Submeter
+                        </Button>
+                        <Button type="button" style={{backgroundColor: '#ec2a2a', borderColor: "red"}} onClick={() => DeleteNew(id)}>
+                            Apagar
                         </Button>
                     </Form>
                 )}

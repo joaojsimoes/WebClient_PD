@@ -1,9 +1,13 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 import ReactTable, { Column } from 'react-table-6';
 import 'react-table-6/react-table.css'
 import styled from 'styled-components';
 import { New } from '../../common/interfaces/news.interface';
+import { IStore } from '../../config/store';
+import { NewsApi } from './news.api';
+import { NewsActions } from './news.store';
 
 interface IDashboard {
 
@@ -11,6 +15,9 @@ interface IDashboard {
 
 const Dashboard = (props: IDashboard) => {
     const history = useHistory();
+    const dispatch = useDispatch();
+    const news: New[] = useSelector((store: IStore) => store.newsReducer.news);
+    console.log(news);
     const data: New[] =  [
         {
             id: "213123",
@@ -25,6 +32,19 @@ const Dashboard = (props: IDashboard) => {
             numVisualizacoes: 21
         }
     ];
+
+    useEffect(() => {
+       /* dispatch(NewsActions.creators.fetchNews())
+        NewsApi.methods.getNews().then(
+            res => {
+                dispatch(NewsActions.creators.fetchNewsSuccess(res));
+            },
+            err => {
+                dispatch(NewsActions.creators.fetchNewsError);
+            }
+        )*/
+    }, [])
+
     const columns = [{
         Header: 'Titulo',
         accessor: 'titulo',
@@ -65,7 +85,7 @@ const Dashboard = (props: IDashboard) => {
                 >Add new</ButtonAdd>
             </Header>
             <ReactTable
-                data={data}
+                data={news}
                 columns={columns}
                 showPagination={true}
                 showPaginationBottom={true}

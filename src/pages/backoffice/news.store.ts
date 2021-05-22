@@ -43,7 +43,18 @@ export interface INewsReducer {
 }
 
 const initialValues: INewsReducer = {
-    news: [],
+    news: [{
+        id: "213123",
+        titulo: "New 1",
+        subtitulo:  "New 1",
+        data: "15/05/2021",
+        categoria: "New 1",
+        autor: "New 1",
+        conteudo: "New 1",
+        urlImage: "",
+        enable: true,
+        numVisualizacoes: 21
+    }],
     isLoading: false
 }
 

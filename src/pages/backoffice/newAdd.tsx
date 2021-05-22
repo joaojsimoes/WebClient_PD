@@ -1,8 +1,11 @@
 import { Formik } from 'formik';
 import React from 'react'
+import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
 import styled from 'styled-components';
 import { New } from '../../common/interfaces/news.interface';
+import { NewsApi } from './news.api';
+import { NewsActions } from './news.store';
 
 interface INewAdd {
 }
@@ -10,10 +13,24 @@ interface INewAdd {
 const NewAdd = (props: INewAdd) => {
     const history = useHistory();
     const noticia: New ={};
+    const dispatch = useDispatch();
 
     const goBack = () => {
         history.goBack();
     }
+
+    const createNew = (values: New) => {
+        /*NewsApi.methods.addNew(values).then(
+            res => {*/values.id = "dasdas";
+                dispatch(NewsActions.creators.addNew(values));
+                history.push("/backoffice/dashboard");
+            /*},
+            (err) => {
+
+            }
+        )*/
+    }
+
     return (<Container>
         <WhiteContainer>
             <Header>
@@ -39,10 +56,10 @@ const NewAdd = (props: INewAdd) => {
                         errors.categoria = 'Required';
                     }
                     if (!values.data) {
-                        errors.autor = 'Required';
+                        errors.data = 'Required';
                     }
                     if (!values.conteudo) {
-                        errors.categoria = 'Required';
+                        errors.conteudo = 'Required';
                     }
                     if (!values.urlImage) {
                         errors.urlImage = 'Required';
@@ -51,8 +68,8 @@ const NewAdd = (props: INewAdd) => {
                 }}
                 onSubmit={(values, { setSubmitting }) => {
                     setTimeout(() => {
-
-                    setSubmitting(false);
+                        createNew(values);
+                        setSubmitting(false);
                     }, 400);
                 }}
             >
@@ -113,7 +130,7 @@ const NewAdd = (props: INewAdd) => {
                         <label>Autor</label>
                         <Input
                             type="text"
-                            name="categoria"
+                            name="autor"
                             onChange={handleChange}
                             onBlur={handleBlur}
                             value={values.autor}

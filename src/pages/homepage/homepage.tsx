@@ -1,17 +1,36 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { New } from '../../common/interfaces/news.interface';
 import Nav from '../../components/nav';
 import News from '../../components/news';
+import { IStore } from '../../config/store';
 
 interface IHomepage {
 
 }
-yarn
+
 const Homepage = (props: IHomepage) => {
+    const dispatch = useDispatch();
+    const news: New[] = useSelector((store: IStore) => store.newsReducer.news);
+    const isLoading: boolean = useSelector((store: IStore) => store.newsReducer.isLoading);
+    
+    useEffect(() => {
+        /* dispatch(NewsActions.creators.fetchNews())
+         NewsApi.methods.getNews().then(
+             res => {
+                 dispatch(NewsActions.creators.fetchNewsSuccess(res));
+             },
+             err => {
+                 dispatch(NewsActions.creators.fetchNewsError);
+             }
+         )*/
+     }, [])
+
     return ( 
         <Container>
             <Nav />
-            <News />
+            <News listOfNews={news} isLoading={isLoading} />
         </Container>
     );
 }
