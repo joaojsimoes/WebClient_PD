@@ -1,15 +1,14 @@
 pipeline {
     agent any
-
     stages {      
-        stage('test') {
+        stage('run yarn') {
             steps {
                 echo 'uhmm....'
-                nodejs('node-10-17')  
+                nodejs('node-10.17')  
                     sh 'yarn install'
             }
         }
-        stage('Deploy') {
+        stage('run backend') {
             steps {
                 echo 'Deploying....'
             }
