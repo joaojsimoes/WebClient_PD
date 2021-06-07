@@ -1,9 +1,9 @@
 pipeline {
     agent any
     stages {      
-        stage('Deploy') {
+        stage('test') {
             steps {
-                echo 'Deploying....'
+                echo 'uhmm....'
                 nodejs('node-10-17')  
                     sh 'yarn install'
             }
