@@ -20,15 +20,17 @@ const NewAdd = (props: INewAdd) => {
     }
 
     const createNew = (values: New) => {
-        /*NewsApi.methods.addNew(values).then(
-            res => {*/values.id = "dasdas";
+        values.enable=true;
+        values.numVisualizacoes=0;
+        NewsApi.methods.addNew(values).then(
+            res => {
                 dispatch(NewsActions.creators.addNew(values));
                 history.push("/backoffice/dashboard");
-            /*},
+            },
             (err) => {
 
             }
-        )*/
+        )
     }
 
     return (<Container>
@@ -52,8 +54,8 @@ const NewAdd = (props: INewAdd) => {
                     if (!values.autor) {
                         errors.autor = 'Required';
                     }
-                    if (!values.categoria) {
-                        errors.categoria = 'Required';
+                    if (!values.categorias) {
+                        errors.categorias = 'Required';
                     }
                     if (!values.data) {
                         errors.data = 'Required';
@@ -112,12 +114,12 @@ const NewAdd = (props: INewAdd) => {
                         <label>Categoria</label>
                         <Input
                             type="text"
-                            name="categoria"
+                            name="categorias"
                             onChange={handleChange}
                             onBlur={handleBlur}
-                            value={values.categoria}
+                            value={values.categorias}
                         />
-                        <TextRequired>{errors.categoria}</TextRequired>
+                        <TextRequired>{errors.categorias}</TextRequired>
                         <label>Conteudo</label>
                         <Input
                             type="text"

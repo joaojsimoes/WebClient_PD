@@ -14,7 +14,7 @@ const NewItem = ( { noticia }: INewItem) => {
             </ImgContainer>
             <ContentContainer>
                 <TitleContainer>{noticia.titulo}</TitleContainer>
-                <SubtitleContainer>{noticia.subtitulo}-{noticia.categoria}</SubtitleContainer>
+                <SubtitleContainer>{noticia.subtitulo}-{noticia.categorias}</SubtitleContainer>
                 <hr style={{border: "1px solid rgba(0,136,169,1)"}}/>
                 <Content>{noticia.conteudo}</Content>
                 

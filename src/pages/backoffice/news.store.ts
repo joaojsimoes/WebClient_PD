@@ -43,18 +43,7 @@ export interface INewsReducer {
 }
 
 const initialValues: INewsReducer = {
-    news: [{
-        id: "213123",
-        titulo: "New 1",
-        subtitulo:  "New 1",
-        data: "15/05/2021",
-        categoria: "New 1",
-        autor: "New 1",
-        conteudo: "New 1",
-        urlImage: "",
-        enable: true,
-        numVisualizacoes: 21
-    }],
+    news: [],
     isLoading: false
 }
 
@@ -74,13 +63,13 @@ export const newsReducer = produce((draft: INewsReducer, action: any) => {
             draft.news = [...draft.news, action.payload.new];
         return;
         case NewsActions.types.UPDATE_NEW: 
-            const idx = draft.news.findIndex(not => not.id === action.payload.id);
+            const idx = draft.news.findIndex(not => not._id === action.payload.id);
             if(idx > -1){
                 draft.news[idx] = action.payload.new;
             }
         return;
         case NewsActions.types.DELETE_NEW: 
-            draft.news = draft.news.filter(not => not.id !== action.payload.id);
+            draft.news = draft.news.filter(not => not._id !== action.payload.id);
         return;
         default: return draft;
     }

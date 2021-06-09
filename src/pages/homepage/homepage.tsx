@@ -5,6 +5,8 @@ import { New } from '../../common/interfaces/news.interface';
 import Nav from '../../components/nav';
 import News from '../../components/news';
 import { IStore } from '../../config/store';
+import { NewsApi } from '../backoffice/news.api';
+import { NewsActions } from '../backoffice/news.store';
 
 interface IHomepage {
 
@@ -16,15 +18,15 @@ const Homepage = (props: IHomepage) => {
     const isLoading: boolean = useSelector((store: IStore) => store.newsReducer.isLoading);
     
     useEffect(() => {
-        /* dispatch(NewsActions.creators.fetchNews())
+         dispatch(NewsActions.creators.fetchNews())
          NewsApi.methods.getNews().then(
              res => {
-                 dispatch(NewsActions.creators.fetchNewsSuccess(res));
+                 dispatch(NewsActions.creators.fetchNewsSuccess(res.data));
              },
              err => {
-                 dispatch(NewsActions.creators.fetchNewsError);
+                 dispatch(NewsActions.creators.fetchNewsError());
              }
-         )*/
+         )
      }, [])
 
     return ( 

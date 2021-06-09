@@ -16,7 +16,7 @@ interface INewDetails {
 const NewDetails = (props: INewDetails) => {
     const {id} = useParams<{id: string}>();
     const history = useHistory();
-    let noticia: New | undefined  = useSelector((store: IStore) => store.newsReducer.news.find(n => n.id === id));
+    let noticia: New | undefined  = useSelector((store: IStore) => store.newsReducer.news.find(n => n._id === id));
     if(noticia === undefined )
         noticia = {};
     const dispatch = useDispatch();
@@ -26,28 +26,28 @@ const NewDetails = (props: INewDetails) => {
     }
 
     const UpdateNew = (id: string, values: New) => {
-        /*NewsApi.methods.updateNew(id, values).then(
-            res => {*/
+        NewsApi.methods.updateNew(id, values).then(
+            res => {
                 dispatch(NewsActions.creators.updateNew(id, values));
                 history.push("/backoffice/dashboard");
-            /*},
+            },
             err => {
 
             }
-        )*/
+        )
     }
 
     const DeleteNew = (id: string) => {
-       /* NewsApi.methods.deleteNew(id).then(
-            res => {*/
+        NewsApi.methods.deleteNew(id).then(
+            res => {
                 dispatch(NewsActions.creators.deleteNew(id));
                 history.push("/backoffice/dashboard");
 
-          /*  },
+            },
             err => {
 
             }
-        );*/
+        );
     }
 
     return (<Container>
@@ -55,7 +55,7 @@ const NewDetails = (props: INewDetails) => {
             <Header>
                 <div style={{display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "space-between"}}>
                     <GoBackIcon onClick={goBack}>{"<"}</GoBackIcon>
-                    <Text style={{marginLeft: "8px"}}>Details {id}</Text>
+                    <Text style={{marginLeft: "8px"}}>Details {noticia.titulo}</Text>
                 </div>
             </Header>
             <Formik
@@ -71,14 +71,14 @@ const NewDetails = (props: INewDetails) => {
                     if (!values.autor) {
                         errors.autor = 'Required';
                     }
-                    if (!values.categoria) {
-                        errors.categoria = 'Required';
+                    if (!values.categorias) {
+                        errors.categorias = 'Required';
                     }
                     if (!values.data) {
                         errors.autor = 'Required';
                     }
                     if (!values.conteudo) {
-                        errors.categoria = 'Required';
+                        errors.conteudo = 'Required';
                     }
                     if (!values.urlImage) {
                         errors.urlImage = 'Required';
@@ -134,9 +134,9 @@ const NewDetails = (props: INewDetails) => {
                             name="categoria"
                             onChange={handleChange}
                             onBlur={handleBlur}
-                            value={values.categoria}
+                            value={values.categorias}
                         />
-                        <TextRequired>{errors.categoria}</TextRequired>
+                        <TextRequired>{errors.categorias}</TextRequired>
                         <label>Conteudo</label>
                         <Input
                             type="text"

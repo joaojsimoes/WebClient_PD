@@ -31,7 +31,9 @@ const LoginPage = (props: ILogin) => {
                 }}
                 onSubmit={(values, { setSubmitting }) => {
                     setTimeout(() => {
-                        history.push("/backoffice/dashboard");
+                        if(values.email==="admin@news.com" && values.password==="adminnews"){
+                            history.push("/backoffice/dashboard");
+                        }
                     setSubmitting(false);
                     }, 400);
                 }}

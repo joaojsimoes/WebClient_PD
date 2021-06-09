@@ -4,23 +4,23 @@ import API from "../../config/server";
 
 export const NewsApi = {
     endpoints: {
-        FETCH_NEWS: "",
-        ADD_NEW: "",
-        UPDATE_NEW: "",
-        DELETE_NEW: ""
+        FETCH_NEWS: "/noticias",
+        ADD_NEW: "/noticias",
+        UPDATE_NEW: "/noticias/:id",
+        DELETE_NEW: "/noticias/:id"
     },
     methods: {
-        getNews: (): Promise<New[]> => {
+        getNews: () => {
             return API.get(NewsApi.endpoints.FETCH_NEWS);
         },
         addNew: (not: New) => {
             return API.post(NewsApi.endpoints.ADD_NEW, not);
         },
         updateNew: (id: string, not: New) => {
-            return API.post(NewsApi.endpoints.ADD_NEW, {id, new: not});
+            return API.put(NewsApi.endpoints.UPDATE_NEW.replace(":id",id), not);
         },
         deleteNew: (id: string) => {
-            return API.delete(NewsApi.endpoints.DELETE_NEW);
+            return API.delete(NewsApi.endpoints.DELETE_NEW.replace(":id",id));
         }
     }
 }

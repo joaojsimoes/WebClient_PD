@@ -17,32 +17,17 @@ const Dashboard = (props: IDashboard) => {
     const history = useHistory();
     const dispatch = useDispatch();
     const news: New[] = useSelector((store: IStore) => store.newsReducer.news);
-    console.log(news);
-    const data: New[] =  [
-        {
-            id: "213123",
-            titulo: "New 1",
-            subtitulo:  "New 1",
-            data: "15/05/2021",
-            categoria: "New 1",
-            autor: "New 1",
-            conteudo: "New 1",
-            urlImage: "",
-            enable: true,
-            numVisualizacoes: 21
-        }
-    ];
 
     useEffect(() => {
-       /* dispatch(NewsActions.creators.fetchNews())
+        dispatch(NewsActions.creators.fetchNews())
         NewsApi.methods.getNews().then(
             res => {
-                dispatch(NewsActions.creators.fetchNewsSuccess(res));
+                dispatch(NewsActions.creators.fetchNewsSuccess(res.data));
             },
             err => {
                 dispatch(NewsActions.creators.fetchNewsError);
             }
-        )*/
+        )
     }, [])
 
     const columns = [{
@@ -59,7 +44,7 @@ const Dashboard = (props: IDashboard) => {
     },
     {
         Header: 'Categoria',
-        accessor: 'categoria',
+        accessor: 'categorias',
     },
     {
         Header: 'Autor',
@@ -94,7 +79,7 @@ const Dashboard = (props: IDashboard) => {
                     return {
                       onClick: (e: any, handleOriginal: any) => {
                         console.log('It was in this row:', rowInfo)
-                        onClickLine(rowInfo.original.id);
+                        onClickLine(rowInfo.original._id);
                         // IMPORTANT! React-Table uses onClick internally to trigger
                         // events like expanding SubComponents and pivots.
                         // By default a custom 'onClick' handler will override this functionality.

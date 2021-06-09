@@ -1,12 +1,13 @@
 export interface New{
-    id?: string;
+    _id?: string;
     titulo?: string;
     subtitulo?: string;
     data?: string;
-    categoria?: string;
+    categorias?: string;
     autor?: string;
     conteudo?: string;
     urlImage?: string;
     enable?: boolean;
     numVisualizacoes?: number;
+    __v?: number;
 }
